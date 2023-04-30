@@ -8,7 +8,7 @@ public class GrabObjects : MonoBehaviour
     [SerializeField]
     private Camera cam;
     [SerializeField]
-    private float maxGrabDistance = 5f;
+    private float maxGrabDistance = 5f,minGrabDistance = 2f;
     [SerializeField]
     private Transform objectHolder;
     [SerializeField]
@@ -36,11 +36,11 @@ public class GrabObjects : MonoBehaviour
 
         if(grabbedRB)
         {
-            if(distance >= 2 && distance <= maxGrabDistance)
+            if(distance >= minGrabDistance && distance <= maxGrabDistance)
             {
                 objectHolder.transform.position = objectHolder.transform.position + cam.transform.forward * speed * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel");
             }
-            else if (distance < 2)
+            else if (distance < minGrabDistance)
             {
                 objectHolder.transform.position = objectHolder.transform.position + cam.transform.forward;
             }
