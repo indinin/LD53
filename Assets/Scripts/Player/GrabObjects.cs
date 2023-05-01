@@ -21,6 +21,8 @@ public class GrabObjects : MonoBehaviour
     private float distance;
     [SerializeField]
     private GameObject movableObject;
+    [SerializeField]
+    float throwForce = 5f;
 
     [SerializeField]
     private Rigidbody grabbedRB;
@@ -38,7 +40,7 @@ public class GrabObjects : MonoBehaviour
         {
             if(distance >= minGrabDistance && distance <= maxGrabDistance)
             {
-                objectHolder.transform.position = objectHolder.transform.position + cam.transform.forward * speed * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel");
+                objectHolder.transform.position = objectHolder.transform.position;// + cam.transform.forward * speed * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel");
             }
             else if (distance < minGrabDistance)
             {
@@ -52,6 +54,7 @@ public class GrabObjects : MonoBehaviour
             grabbedRB.velocity = (objectHolder.transform.position - movableObject.transform.position) * lerpSpeed;
         }
 
+        //Drop
         if(Input.GetKeyDown(KeyCode.E))
         {
             if(grabbedRB)
@@ -87,6 +90,20 @@ public class GrabObjects : MonoBehaviour
                     }
                 }
             }
+        }
+
+        //Throw
+        if (Input.GetMouseButtonDown(0) && grabbedRB)
+        {
+            grabbedRB.useGravity = true;
+            grabbedRB.freezeRotation = false;
+
+            grabbedRB.velocity = (grabbedRB.gameObject.transform.position - cam.transform.position).normalized * throwForce;
+
+            grabbedRB = null;
+            movableObject = null;
+
+            objectHolder.transform.position = objectHolderStart.transform.position;
         }
     }
 }
