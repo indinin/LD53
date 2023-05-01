@@ -77,6 +77,10 @@ public class GrabObjects : MonoBehaviour
                     if (tags.Contains(hit.collider.gameObject.tag))
                     {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                        if (hit.collider.gameObject.tag.Equals("Package"))
+                        {
+                            hit.collider.gameObject.GetComponent<PackageData>().SetColor();
+                        }
                     }
                     if(grabbedRB)
                     {

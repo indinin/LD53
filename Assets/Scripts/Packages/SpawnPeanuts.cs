@@ -7,16 +7,23 @@ public class SpawnPeanuts : MonoBehaviour
 {
     [SerializeField] GameObject particles;
     bool collided = false;
+    Rigidbody rb;
+    Vector3 prevVelocity = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private void FixedUpdate()
+    {
+        prevVelocity = rb.velocity;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,13 +48,18 @@ public class SpawnPeanuts : MonoBehaviour
             //Instantiate(particles, transform.position, Quaternion.identity);
         }
 
-        if(GetComponent<Rigidbody>().velocity.magnitude > .75f)
+        if(prevVelocity.magnitude > .75f)
         {
             
             {
+                GetComponent<PackageData>().HardHitSound();
                 Instantiate(particles, transform.position, Quaternion.identity);
                 //Destroy(this.gameObject);
             }
+        }
+        else
+        {
+            GetComponent<PackageData>().SoftHitSound();
         }
     }
 

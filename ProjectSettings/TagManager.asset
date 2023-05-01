@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Package
   - Envelope
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
+  - Package
+  - Player
   - 
   - 
   - 
