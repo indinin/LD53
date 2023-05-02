@@ -25,12 +25,14 @@ public class GrabObjects : MonoBehaviour
     float throwForce = 5f;
 
     [SerializeField]
-    private Rigidbody grabbedRB;
+    public Rigidbody grabbedRB;
 
     private string[] tags = {
         "Package",
         "Envelope"
     };
+
+    [SerializeField]LayerMask mask;
 
     void Update()
     {
@@ -71,7 +73,7 @@ public class GrabObjects : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-                if(Physics.Raycast(ray, out hit, maxGrabDistance))
+                if(Physics.Raycast(ray, out hit, maxGrabDistance,mask))
                 {
                     movableObject = hit.collider.gameObject;
                     if (tags.Contains(hit.collider.gameObject.tag))
@@ -80,6 +82,9 @@ public class GrabObjects : MonoBehaviour
                         if (hit.collider.gameObject.tag.Equals("Package"))
                         {
                             hit.collider.gameObject.GetComponent<PackageData>().SetColor();
+                        } else
+                        {
+                            hit.collider.gameObject.GetComponent<EnvData>().SetColor();
                         }
                     }
                     if(grabbedRB)

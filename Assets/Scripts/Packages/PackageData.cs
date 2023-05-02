@@ -12,9 +12,11 @@ public class PackageData : MonoBehaviour
     bool soundPlayed = false;
     [SerializeField] AudioClip hitSoft, hitHard, deliver;
     AudioSource source;
+    Score score;
     // Start is called before the first frame update
     void Start()
     {
+        score = GameObject.Find("Score").GetComponent<Score>();
         source = GetComponent<AudioSource>();
     }
 
@@ -36,6 +38,7 @@ public class PackageData : MonoBehaviour
 
         if(soundPlayed && !source.isPlaying)
         {
+            score.score += 1;
             Destroy(this.gameObject);
         }
     }
@@ -63,14 +66,21 @@ public class PackageData : MonoBehaviour
 
     public void SoftHitSound()
     {
-        source.clip = hitSoft;
-        source.Play();
+        if (grabbed && !misdelivered)
+        {
+            source.clip = hitSoft;
+            source.Play();
+        }
     }
 
     public void HardHitSound()
     {
-        source.clip = hitHard;
-        source.Play();
+        if (grabbed)
+        {
+            source.clip = hitHard;
+            source.Play();
+        }
+        
     }
     
 }
