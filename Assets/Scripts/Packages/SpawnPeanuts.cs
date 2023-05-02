@@ -51,18 +51,21 @@ public class SpawnPeanuts : MonoBehaviour
 
         if (collision.gameObject.tag.Equals("NPC"))
         {
-            GameObject NPC = collision.gameObject;
-            //NPC.GetComponent<WalkToPointNavMesh>().Hit(transform.position);
-            NPC.GetComponent<WalkToPointNavMesh>().enabled = false;
-            NPC.GetComponent<NavMeshAgent>().enabled = false;
-            NPC.AddComponent<Rigidbody>();
-            NPC.GetComponent<Rigidbody>().AddExplosionForce(1000, transform.position, 100);
-            //Destroy(collision.gameObject);
-            data.HardHitSound();
-            Instantiate(particles, transform.position, Quaternion.identity);
-            NPC.GetComponent<OnHit>().Scream();
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<BoxCollider>().enabled = false;
+            if (render.materials[1].color != Color.white)
+            {
+                GameObject NPC = collision.gameObject;
+                //NPC.GetComponent<WalkToPointNavMesh>().Hit(transform.position);
+                NPC.GetComponent<WalkToPointNavMesh>().enabled = false;
+                NPC.GetComponent<NavMeshAgent>().enabled = false;
+                NPC.AddComponent<Rigidbody>();
+                NPC.GetComponent<Rigidbody>().AddExplosionForce(1000, transform.position, 100);
+                //Destroy(collision.gameObject);
+                data.HardHitSound();
+                Instantiate(particles, transform.position, Quaternion.identity);
+                NPC.GetComponent<OnHit>().Scream();
+                GetComponent<MeshRenderer>().enabled = false;
+                GetComponent<BoxCollider>().enabled = false;
+            }
             //Destroy(this.gameObject);
         }else if (prevVelocity.magnitude > .75f)
         {

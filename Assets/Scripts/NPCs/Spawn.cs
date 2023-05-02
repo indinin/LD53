@@ -7,7 +7,7 @@ public class Spawn : MonoBehaviour
     [SerializeField]
     GameObject[] NPCs;
 
-    float count = 0;
+    float count = 10;//Random.Range(9f,12f);
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +17,11 @@ public class Spawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        count += Time.deltaTime;
-        if(count >= 3)
+        count -= Time.deltaTime;
+        if(count <= 0)
         {
             Instantiate(NPCs[Random.Range(0, NPCs.Length)]);
-            count = 0;
+            count = Random.Range(9f,12f);
         }
     }
 }

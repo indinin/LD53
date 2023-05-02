@@ -462,8 +462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  spotted: 0
   gasp: {fileID: 8300000, guid: 47cd4310d6fbf084a9c9ebba81341dd1, type: 3}
-  player: {fileID: 0}
 --- !u!65 &8070798500526890230
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -597,7 +597,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 10
   m_Center: {x: 0, y: -1.2, z: 0}
 --- !u!1 &8070798500657863926
 GameObject:

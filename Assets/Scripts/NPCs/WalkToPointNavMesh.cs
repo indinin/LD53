@@ -16,9 +16,11 @@ public class WalkToPointNavMesh : MonoBehaviour
     AudioSource source;
     [SerializeField] AudioClip gasp;
     GameObject player;
+    Score score;
 
     void Start()
     {
+        score = GameObject.Find("Score").GetComponent<Score>();
         player = GameObject.FindGameObjectWithTag("Player");
         source = GetComponent<AudioSource>();
         targets = GameObject.Find("Targets");
@@ -40,11 +42,15 @@ public class WalkToPointNavMesh : MonoBehaviour
     {
         if (spotted)
         {
+            score.suspicion += Time.deltaTime * 5;
             transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
-        } else if (hit) {
+        }
+        else if (hit)
+        {
             hit = false;
             HitFinish(hitPoint);
-        } else if ((transform.position - target.position).magnitude < 0.2f)
+        }
+        else if ((transform.position - target.position).magnitude < 0.2f)
         {
             Destroy(this.gameObject);
         }
@@ -72,6 +78,7 @@ public class WalkToPointNavMesh : MonoBehaviour
             //Check if they're holding something
             if(other.gameObject.GetComponent<GrabObjects>().grabbedRB != null && !spotted)
             {
+                
                 spotted = true;
                 agent.enabled = false;
                 source.Stop();
@@ -98,5 +105,6 @@ public class WalkToPointNavMesh : MonoBehaviour
         gameObject.AddComponent<Rigidbody>();
         GetComponent<Rigidbody>().AddExplosionForce(100, pos, 100);
         GetComponent<OnHit>().Scream();
+        this.enabled = false;
     }
 }

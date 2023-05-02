@@ -18,10 +18,10 @@ public class SpawnEnvelopes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         counter += Time.deltaTime;
 
-        if (counter >= Random.Range(10f, 15f))
+        if (counter >= Random.Range(5f, 11f))
         {
             Spawn();
             counter = 0;
@@ -31,7 +31,7 @@ public class SpawnEnvelopes : MonoBehaviour
         {
             Spawn();
         }
-        */
+        
     }
 
     public void Spawn()
